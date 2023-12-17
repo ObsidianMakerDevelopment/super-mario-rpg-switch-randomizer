@@ -90,6 +90,7 @@ namespace Randomizer
             {
                 reader1 = new NRBFReader(stream);
                 messages = ((Object[])reader1.Parse()).Select(x => (BinaryObject)x).ToArray();
+                stream.Close();
             }
 
             foreach (var menu in messages)
@@ -125,7 +126,7 @@ namespace Randomizer
             System.IO.File.Delete(destination);
             using var stream_o = File.OpenWrite(destination);
             reader1.WriteStream(stream_o);
-
+            stream_o.Close();
         }
         public static void ShortenLanguage(string? language = null)
         {
@@ -148,6 +149,7 @@ namespace Randomizer
             {
                 reader1 = new NRBFReader(stream);
                 messages = ((Object[])reader1.Parse()).Select(x => (BinaryObject)x).ToArray();
+                stream.Close();
             }
 
             foreach (var charac in messages)
@@ -158,7 +160,7 @@ namespace Randomizer
             System.IO.File.Delete(destination);
             using var stream_o = File.OpenWrite(destination);
             reader1.WriteStream(stream_o);
-
+            stream_o.Close();
         }
         public static void RandomizeEncounter()
         {
@@ -179,21 +181,25 @@ namespace Randomizer
             {
                 reader1 = new NRBFReader(stream);
                 monsters_ori = ((Object[])reader1.Parse()).Select(x => (BinaryObject)x).ToArray();
+                stream.Close();
             }
             using (var stream = File.OpenRead(path))
             {
                 reader1 = new NRBFReader(stream);
                 monsters = ((Object[])reader1.Parse()).Select(x => (BinaryObject)x).ToArray();
+                stream.Close();
             }
             using (var stream = File.OpenRead(path2))
             {
                 reader2 = new NRBFReader(stream);
                 encounters = ((Object[])reader2.Parse()).Select(x => (BinaryObject)x).ToArray();
+                stream.Close();
             }
             using (var stream = File.OpenRead(path3))
             {
                 reader3 = new NRBFReader(stream);
                 encounters_meta = ((Object[])reader3.Parse()).Select(x => (BinaryObject)x).ToArray();
+                stream.Close();
             }
 
             var event_battles = encounters_meta.Where(x => (bool)x["_is_event_battle"]).ToList();
@@ -281,16 +287,19 @@ namespace Randomizer
             using (var stream_o = File.OpenWrite(destination))
             {
                 reader1.WriteStream(stream_o);
+                stream_o.Close();
             }
             System.IO.File.Delete(destination2);
             using (var stream_o = File.OpenWrite(destination2))
             {
                 reader2.WriteStream(stream_o);
+                stream_o.Close();
             }
             System.IO.File.Delete(destination3);
             using (var stream_o = File.OpenWrite(destination3))
             {
                 reader3.WriteStream(stream_o);
+                stream_o.Close();
             }
         }
         public static void RandomizeCharacterInitialStats()
@@ -346,8 +355,9 @@ namespace Randomizer
                 System.IO.File.Delete(destination);
                 using var stream_o = File.OpenWrite(destination);
                 reader.WriteStream(stream_o);
+                stream_o.Close();
+                stream.Close();
             };
-
         }
         public static void RandomizeCharacterLevelUp()
         {
@@ -430,6 +440,8 @@ namespace Randomizer
                 System.IO.File.Delete(destination);
                 using var stream_o = File.OpenWrite(destination);
                 reader.WriteStream(stream_o);
+                stream_o.Close();
+                stream.Close();
             };
 
         }
@@ -451,6 +463,7 @@ namespace Randomizer
                         learnableSkill.Add((int)item["_learn_skill"]);
                     }
                 }
+                stream.Close();
             };
 
         }
@@ -551,6 +564,8 @@ namespace Randomizer
                 System.IO.File.Delete(destination);
                 using var stream_o = File.OpenWrite(destination);
                 reader.WriteStream(stream_o);
+                stream_o.Close();
+                stream.Close();
             };
         }
         public static void RandomizeShop(string? shop = null)
@@ -587,6 +602,8 @@ namespace Randomizer
                 System.IO.File.Delete(destination);
                 using var stream_o = File.OpenWrite(destination);
                 reader.WriteStream(stream_o);
+                stream_o.Close();
+                stream.Close();
             };
         }
 
@@ -621,6 +638,8 @@ namespace Randomizer
                 System.IO.File.Delete(destination);
                 using var stream_o = File.OpenWrite(destination);
                 reader.WriteStream(stream_o);
+                stream_o.Close();
+                stream.Close();
             };
         }
         public static void RandomizeTreasure()
@@ -680,6 +699,8 @@ namespace Randomizer
                 System.IO.File.Delete(destination);
                 using var stream_o = File.OpenWrite(destination);
                 reader.WriteStream(stream_o);
+                stream_o.Close();
+                stream.Close();
             };
         }
         public static void RandomizeCutscenes()
@@ -841,7 +862,9 @@ namespace Randomizer
                 using (var stream_o = File.OpenWrite(destination))
                 {
                     reader.WriteStream(stream_o);
+                    stream_o.Close();
                 }
+                stream.Close();
             };
         }
         public static void Main(string[] args)
